@@ -1,21 +1,30 @@
 export default function Header() {
   return (
-    <header className="border-b px-6 py-3 flex items-center justify-between w-full">
-      <span className="font-semibold text-lg">Blog</span>
-      <nav className="flex items-center gap-1">
-        <a
-          href="/"
-          className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors hover:bg-muted"
-        >
-          Home
-        </a>
-        <a
-          href="/about"
-          className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors hover:bg-muted"
-        >
-          About
-        </a>
-      </nav>
-    </header>
+    <div className="navbar bg-base-100 shadow-sm">
+      <div className="flex-1">
+        <a className="btn btn-ghost text-xl">daisyUI</a>
+      </div>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1">
+          <li className="px-5">
+            <a>Link</a>
+          </li>
+          <li className="px-5">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                />
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 }

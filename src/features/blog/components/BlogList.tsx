@@ -13,12 +13,27 @@ import BlogCard from "./BlogCard";
 //     }
 // }
 
+// //   "author": {
+//         "id": "69dd259d0b90d543374b5e53",
+//         "name": "dod",
+//         "email": "d2@email.com",
+//         "role": "user",
+//         "createdAt": "2026-04-13T17:19:25.61Z"
+//       },
+export interface Author {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  createdAt: string;
+}
+
 export interface Blog {
   id: string;
   title: string;
   content: string;
   image_url: string;
-  author_id: string;
+  author: Author;
   created_at: string;
 }
 
@@ -58,7 +73,7 @@ function BlogList() {
             title={blog.title}
             content={blog.content}
             imageUrl={blog.image_url}
-            author={blog.author_id}
+            author={blog.author.name}
             date={new Date(blog.created_at).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",

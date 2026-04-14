@@ -4,18 +4,32 @@ import type { IBlog } from "../interfaces";
 import { NavLink } from "react-router";
 
 const API_URL = "http://localhost:8080/api/v1/blogs";
+const ITEMS_PER_PAGE = 10;
 
 function BlogList() {
   const [blogs, setBlogs] = useState<IBlog[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-    fetch(API_URL)
+    setLoading(true);
+    fetch(`${API_URL}?page=${currentPage}&limit=${ITEMS_PER_PAGE}`)
       .then((response) => response.json())
-      .then((data) => setBlogs(data.data ?? data))
+      .then((data) => {
+        setBlogs(data.data ?? data);
+        setTotalCount(data.total_count ?? 0);
+      })
       .catch((err) => console.error("Failed to fetch blogs:", err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [currentPage]);
+
+  const pageCount = Math.ceil(totalCount / ITEMS_PER_PAGE);
+
+  function handleSelectCurrentPage(page: number) {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
@@ -93,6 +107,34 @@ function BlogList() {
               />
             </NavLink>
           ))}
+        </div>
+      )}
+
+      {pageCount > 1 && (
+        <div className="join flex justify-center mt-4">
+          <button
+            className="join-item btn btn-sm"
+            disabled={currentPage === 1}
+            onClick={() => handleSelectCurrentPage(currentPage - 1)}
+          >
+            «
+          </button>
+          {Array.from({ length: pageCount }, (_, i) => (
+            <button
+              key={i}
+              className={`join-item btn btn-sm ${currentPage === i + 1 ? "btn-active" : ""}`}
+              onClick={() => handleSelectCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            className="join-item btn btn-sm"
+            disabled={currentPage === pageCount}
+            onClick={() => handleSelectCurrentPage(currentPage + 1)}
+          >
+            »
+          </button>
         </div>
       )}
     </main>

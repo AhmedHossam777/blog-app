@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
+import type { IBlog } from "../interfaces";
 
 //     "success": true,
 //     "data": {
@@ -20,26 +21,10 @@ import BlogCard from "./BlogCard";
 //         "role": "user",
 //         "createdAt": "2026-04-13T17:19:25.61Z"
 //       },
-export interface Author {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  createdAt: string;
-}
-
-export interface Blog {
-  id: string;
-  title: string;
-  content: string;
-  image_url: string;
-  author: Author;
-  created_at: string;
-}
 
 const API_URL = "http://localhost:8080/api/v1/blogs";
 function BlogList() {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs, setBlogs] = useState<IBlog[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

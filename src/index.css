@@ -1,3 +1,253 @@
 @import "tailwindcss";
 @import "@fontsource-variable/geist";
 @plugin "daisyui";
+
+/* ── Premium dark theme ───────────────────────────────────────── */
+@plugin "daisyui/theme" {
+  name: "typo";
+  default: true;
+  color-scheme: dark;
+
+  /* Backgrounds — deep charcoal with a whisper of indigo */
+  --color-base-100: oklch(11% 0.022 265);
+  --color-base-200: oklch(15.5% 0.024 265);
+  --color-base-300: oklch(21% 0.026 265);
+  --color-base-content: oklch(93% 0.008 265);
+
+  /* Primary — electric violet */
+  --color-primary: oklch(66% 0.27 278);
+  --color-primary-content: oklch(98% 0.005 278);
+
+  /* Secondary — warm amber (luxury accent) */
+  --color-secondary: oklch(74% 0.17 58);
+  --color-secondary-content: oklch(18% 0.04 58);
+
+  /* Accent — teal */
+  --color-accent: oklch(67% 0.21 168);
+  --color-accent-content: oklch(15% 0.02 168);
+
+  /* Neutral */
+  --color-neutral: oklch(26% 0.025 265);
+  --color-neutral-content: oklch(86% 0.01 265);
+
+  /* Semantic */
+  --color-info: oklch(65% 0.22 225);
+  --color-info-content: oklch(15% 0.01 225);
+  --color-success: oklch(65% 0.25 150);
+  --color-success-content: oklch(15% 0.01 150);
+  --color-warning: oklch(73% 0.22 85);
+  --color-warning-content: oklch(15% 0.01 85);
+  --color-error: oklch(64% 0.27 22);
+  --color-error-content: oklch(98% 0.005 22);
+
+  /* Radius */
+  --radius-box: 1rem;
+  --radius-btn: 0.625rem;
+  --radius-badge: 0.5rem;
+}
+
+/* ── Global base ──────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Geist Variable", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: oklch(11% 0.022 265);
+}
+
+#root {
+  min-height: 100vh;
+  background-color: oklch(11% 0.022 265);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(30% 0.04 265);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(40% 0.1 278);
+}
+
+/* ── Premium utility classes ──────────────────────────────────── */
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(93% 0.008 265) 0%,
+    oklch(66% 0.27 278) 80%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(
+    135deg,
+    oklch(85% 0.14 80) 0%,
+    oklch(74% 0.17 58) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glass card surface */
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    oklch(17% 0.025 265 / 0.8),
+    oklch(14% 0.022 265 / 0.6)
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid oklch(100% 0 0 / 0.07);
+  box-shadow:
+    0 1px 0 0 oklch(100% 0 0 / 0.05) inset,
+    0 20px 60px -10px oklch(0% 0 0 / 0.5),
+    0 0 0 1px oklch(66% 0.27 278 / 0.04);
+}
+
+/* Glow effect on hover */
+.glow-hover {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.glow-hover:hover {
+  box-shadow:
+    0 0 0 1px oklch(66% 0.27 278 / 0.25),
+    0 8px 32px -8px oklch(66% 0.27 278 / 0.3),
+    0 24px 48px -12px oklch(0% 0 0 / 0.4);
+  transform: translateY(-1px);
+}
+
+/* Premium gradient border */
+.border-gradient {
+  position: relative;
+}
+.border-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    oklch(66% 0.27 278 / 0.4),
+    oklch(74% 0.17 58 / 0.2),
+    transparent 60%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Shimmer animation for skeleton loaders */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    oklch(21% 0.026 265) 25%,
+    oklch(27% 0.03 265) 50%,
+    oklch(21% 0.026 265) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* Subtle noise texture overlay for premium cards */
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Divider gradient */
+.divider-gradient {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    oklch(66% 0.27 278 / 0.5) 30%,
+    oklch(74% 0.17 58 / 0.3) 60%,
+    transparent
+  );
+}
+
+/* Input focus glow */
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px oklch(66% 0.27 278 / 0.15) !important;
+}
+
+/* Premium badge */
+.badge-premium {
+  background: linear-gradient(
+    135deg,
+    oklch(66% 0.27 278 / 0.2),
+    oklch(74% 0.17 58 / 0.15)
+  );
+  border: 1px solid oklch(66% 0.27 278 / 0.3);
+  color: oklch(80% 0.12 278);
+  font-size: 0.6875rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* Floating button shimmer */
+@keyframes float-pulse {
+  0%,
+  100% {
+    box-shadow: 0 8px 32px -4px oklch(66% 0.27 278 / 0.45);
+  }
+  50% {
+    box-shadow: 0 12px 40px -4px oklch(66% 0.27 278 / 0.65);
+  }
+}
+
+.btn-float {
+  animation: float-pulse 3s ease-in-out infinite;
+}

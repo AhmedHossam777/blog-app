@@ -50,15 +50,16 @@ function BolgPage() {
   if (loading) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-12">
-        <div className="h-4 w-20 bg-base-300 rounded-full mb-8" />
-        <div className="h-10 w-3/4 bg-base-300 rounded-xl mb-4" />
-        <div className="h-4 w-48 bg-base-200 rounded-full mb-8" />
-        <div className="w-full h-72 bg-base-300 rounded-2xl mb-8" />
+        <div className="h-4 w-20 shimmer rounded-full mb-8" />
+        <div className="h-10 w-3/4 shimmer rounded-xl mb-4" />
+        <div className="h-4 w-48 shimmer rounded-full mb-8 opacity-70" />
+        <div className="w-full h-72 shimmer rounded-2xl mb-8" />
         <div className="flex flex-col gap-3">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className={`h-4 bg-base-200 rounded-full ${i % 3 === 2 ? "w-2/3" : "w-full"}`}
+              className={`h-4 shimmer rounded-full ${i % 3 === 2 ? "w-2/3" : "w-full"}`}
+              style={{ opacity: 1 - i * 0.1 }}
             />
           ))}
         </div>
@@ -69,9 +70,18 @@ function BolgPage() {
   if (!blog) {
     return (
       <div className="flex flex-col items-center gap-4 py-32 text-center">
-        <p className="text-5xl">404</p>
-        <p className="text-base-content/50">Story not found.</p>
-        <NavLink to="/" className="btn btn-primary btn-sm mt-2">
+        <p className="text-6xl font-extrabold text-gradient">404</p>
+        <p className="text-base-content/45">Story not found.</p>
+        <NavLink
+          to="/"
+          className="mt-2 px-5 py-2 rounded-full text-sm font-semibold transition-all"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(66% 0.27 278), oklch(60% 0.28 288))",
+            color: "oklch(98% 0.005 278)",
+            boxShadow: "0 4px 16px -4px oklch(66% 0.27 278 / 0.4)",
+          }}
+        >
           Back to home
         </NavLink>
       </div>
@@ -88,7 +98,16 @@ function BolgPage() {
       <div className="flex items-center justify-between mb-8">
         <NavLink
           to="/"
-          className="inline-flex items-center gap-1.5 text-sm text-base-content/50 hover:text-primary transition-colors group"
+          className="inline-flex items-center gap-1.5 text-sm font-medium transition-all group"
+          style={{ color: "oklch(60% 0.01 265)" }}
+          onMouseEnter={(e) =>
+            ((e.currentTarget as HTMLElement).style.color =
+              "oklch(66% 0.27 278)")
+          }
+          onMouseLeave={(e) =>
+            ((e.currentTarget as HTMLElement).style.color =
+              "oklch(60% 0.01 265)")
+          }
         >
           <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
           All stories
@@ -98,19 +117,31 @@ function BolgPage() {
           <div className="dropdown dropdown-end">
             <button
               tabIndex={0}
-              className="btn btn-ghost btn-sm btn-circle"
+              className="cursor-pointer w-8 h-8 rounded-full flex items-center justify-center transition-all"
+              style={{
+                background: "oklch(17% 0.025 265)",
+                border: "1px solid oklch(100% 0 0 / 0.06)",
+                color: "oklch(65% 0.01 265)",
+              }}
               aria-label="Post options"
             >
               <MoreHorizontal className="w-4 h-4" />
             </button>
             <ul
               tabIndex={0}
-              className="dropdown-content menu menu-sm bg-base-100 border border-base-200 shadow-lg rounded-xl w-36 p-1 z-10"
+              className="dropdown-content menu menu-sm rounded-xl w-36 p-1 z-10"
+              style={{
+                background:
+                  "linear-gradient(135deg, oklch(17% 0.025 265 / 0.97), oklch(14% 0.022 265 / 0.95))",
+                backdropFilter: "blur(24px)",
+                border: "1px solid oklch(100% 0 0 / 0.08)",
+                boxShadow: "0 8px 32px -8px oklch(0% 0 0 / 0.5)",
+              }}
             >
               <li>
                 <NavLink
                   to={`/blogs/${id}/edit`}
-                  className="flex items-center gap-2 text-sm"
+                  className="flex items-center gap-2 text-sm rounded-lg text-base-content/70 hover:text-base-content hover:bg-white/6"
                 >
                   <Pencil className="w-3.5 h-3.5" />
                   Update
@@ -119,7 +150,7 @@ function BolgPage() {
               <li>
                 <button
                   onClick={handleDelete}
-                  className="flex items-center gap-2 text-sm text-error"
+                  className="flex items-center gap-2 text-sm rounded-lg text-error/70 hover:text-error hover:bg-error/10"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   Delete
@@ -130,19 +161,34 @@ function BolgPage() {
         )}
       </div>
 
-      <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-5">
+      <h1
+        className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-5"
+        style={{ color: "oklch(95% 0.006 265)" }}
+      >
         {blog.title}
       </h1>
 
-      <div className="flex items-center gap-3 mb-8 pb-8 border-b border-base-200">
+      <div
+        className="flex items-center gap-3 mb-8 pb-8"
+        style={{ borderBottom: "1px solid oklch(100% 0 0 / 0.06)" }}
+      >
         <img
           src={`https://ui-avatars.com/api/?name=${encodeURIComponent(blog.author.name)}&background=random&size=80`}
           alt={blog.author.name}
-          className="w-10 h-10 rounded-full ring-2 ring-base-300"
+          className="w-10 h-10 rounded-full"
+          style={{
+            boxShadow:
+              "0 0 0 2px oklch(66% 0.27 278 / 0.25), 0 0 0 4px oklch(66% 0.27 278 / 0.07)",
+          }}
         />
         <div className="flex flex-col leading-tight">
-          <span className="text-sm font-semibold">{blog.author.name}</span>
-          <div className="flex items-center gap-2 text-base-content/50 text-xs">
+          <span className="text-sm font-semibold text-base-content/90">
+            {blog.author.name}
+          </span>
+          <div
+            className="flex items-center gap-2 text-xs"
+            style={{ color: "oklch(55% 0.01 265)" }}
+          >
             <span>
               {new Date(blog.created_at).toLocaleDateString("en-US", {
                 month: "long",
@@ -150,14 +196,20 @@ function BolgPage() {
                 year: "numeric",
               })}
             </span>
-            <span>·</span>
+            <span className="opacity-40">·</span>
             <span>{readingTime} min read</span>
           </div>
         </div>
       </div>
 
       {blog.image_url && (
-        <div className="w-full mb-10 rounded-2xl overflow-hidden shadow-lg">
+        <div
+          className="w-full mb-10 rounded-2xl overflow-hidden"
+          style={{
+            boxShadow:
+              "0 8px 48px -8px oklch(0% 0 0 / 0.6), 0 0 0 1px oklch(100% 0 0 / 0.05)",
+          }}
+        >
           <img
             src={blog.image_url}
             alt={blog.title}
@@ -166,7 +218,10 @@ function BolgPage() {
         </div>
       )}
 
-      <div className="prose prose-base max-w-none text-base-content/80 leading-[1.9] text-[1.0625rem]">
+      <div
+        className="max-w-none leading-[1.9] text-[1.0625rem] space-y-5"
+        style={{ color: "oklch(82% 0.008 265)" }}
+      >
         {blog.content
           .split("\n")
           .map((para, i) =>
@@ -175,27 +230,67 @@ function BolgPage() {
       </div>
 
       {deleteError && (
-        <div className="flex items-center gap-2 mt-6 bg-error/10 border border-error/20 text-error rounded-xl px-4 py-3 text-sm">
+        <div
+          className="flex items-center gap-2 mt-6 rounded-xl px-4 py-3 text-sm"
+          style={{
+            background: "oklch(64% 0.27 22 / 0.08)",
+            border: "1px solid oklch(64% 0.27 22 / 0.2)",
+            color: "oklch(75% 0.2 22)",
+          }}
+        >
           <AlertCircle className="w-4 h-4 shrink-0" />
           {deleteError}
         </div>
       )}
 
-      <div className="mt-8 pt-8 border-t border-base-200 flex items-center justify-between">
+      <div
+        className="mt-10 pt-8 flex items-center justify-between"
+        style={{ borderTop: "1px solid oklch(100% 0 0 / 0.06)" }}
+      >
         <div className="flex items-center gap-3">
           <img
             src={`https://ui-avatars.com/api/?name=${encodeURIComponent(blog.author.name)}&background=random&size=80`}
             alt={blog.author.name}
-            className="w-12 h-12 rounded-full ring-2 ring-base-300"
+            className="w-12 h-12 rounded-full"
+            style={{
+              boxShadow:
+                "0 0 0 2px oklch(66% 0.27 278 / 0.25), 0 0 0 4px oklch(66% 0.27 278 / 0.07)",
+            }}
           />
           <div className="flex flex-col leading-tight">
-            <p className="text-xs text-base-content/40 uppercase tracking-wider mb-0.5">
+            <p
+              className="text-xs uppercase tracking-widest mb-0.5"
+              style={{ color: "oklch(50% 0.01 265)" }}
+            >
               Written by
             </p>
-            <p className="font-semibold text-sm">{blog.author.name}</p>
+            <p className="font-semibold text-sm text-base-content/90">
+              {blog.author.name}
+            </p>
           </div>
         </div>
-        <NavLink to="/" className="btn btn-ghost btn-sm gap-1.5">
+        <NavLink
+          to="/"
+          className="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full transition-all"
+          style={{
+            background: "oklch(17% 0.025 265)",
+            border: "1px solid oklch(100% 0 0 / 0.07)",
+            color: "oklch(70% 0.01 265)",
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLElement;
+            el.style.background =
+              "linear-gradient(135deg, oklch(66% 0.27 278 / 0.15), oklch(74% 0.17 58 / 0.08))";
+            el.style.borderColor = "oklch(66% 0.27 278 / 0.25)";
+            el.style.color = "oklch(80% 0.08 278)";
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLElement;
+            el.style.background = "oklch(17% 0.025 265)";
+            el.style.borderColor = "oklch(100% 0 0 / 0.07)";
+            el.style.color = "oklch(70% 0.01 265)";
+          }}
+        >
           More stories
           <ChevronRight className="w-3.5 h-3.5" />
         </NavLink>

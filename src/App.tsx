@@ -10,18 +10,20 @@ import NotFound from "./layout/NotFound";
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen bg-base-100 text-base-content">
       <Header />
-      <Routes>
-        <Route path="/" element={<BlogList />} />
-        <Route path="/blogs/:id" element={<BolgPage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/create-blog" element={<CreateBlog />} />
-        <Route path="/profile" element={<Profile />} />
+      <main className="min-h-[calc(100vh-4rem)]">
+        <Routes>
+          <Route path="/" element={<BlogList />} />
+          <Route path="/blogs/:id" element={<BolgPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/create-blog" element={<CreateBlog />} />
+          <Route path="/profile" element={<Profile />} />
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
     </div>
   );
 }

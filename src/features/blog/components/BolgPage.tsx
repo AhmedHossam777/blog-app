@@ -1,14 +1,28 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { apiClient } from "@/lib/apiClient";
+import {
+  AlertCircle,
+  ChevronLeft,
+  ChevronRight,
+  MoreHorizontal,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import type { IBlog } from "../interfaces";
-import { useParams, NavLink } from "react-router";
+import { NavLink, useNavigate, useParams } from "react-router";
 
 const API_URL = "http://localhost:8080/api/v1/blogs";
 
 function BolgPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const [blog, setBlog] = useState<IBlog | null>(null);
   const [loading, setLoading] = useState(true);
+  const [deleteError, setDeleteError] = useState("");
+
+  const checkOwnership = user && blog && user.id === blog.author.id;
 
   useEffect(() => {
     if (!id) return;
@@ -20,9 +34,22 @@ function BolgPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
+  const handleDelete = () => {
+    setDeleteError("");
+    apiClient(`/blogs/${id}`, {
+      method: "DELETE",
+      requiresAuth: true,
+    })
+      .then(() => navigate("/"))
+      .catch((err) => {
+        console.error("Failed to delete blog:", err);
+        setDeleteError("Failed to delete. Please try again.");
+      });
+  };
+
   if (loading) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-12 animate-pulse">
+      <div className="max-w-3xl mx-auto px-4 py-12">
         <div className="h-4 w-20 bg-base-300 rounded-full mb-8" />
         <div className="h-10 w-3/4 bg-base-300 rounded-xl mb-4" />
         <div className="h-4 w-48 bg-base-200 rounded-full mb-8" />
@@ -58,13 +85,50 @@ function BolgPage() {
 
   return (
     <article className="max-w-3xl mx-auto px-4 py-10">
-      <NavLink
-        to="/"
-        className="inline-flex items-center gap-1.5 text-sm text-base-content/50 hover:text-primary transition-colors mb-8 group"
-      >
-        <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-        All stories
-      </NavLink>
+      <div className="flex items-center justify-between mb-8">
+        <NavLink
+          to="/"
+          className="inline-flex items-center gap-1.5 text-sm text-base-content/50 hover:text-primary transition-colors group"
+        >
+          <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+          All stories
+        </NavLink>
+
+        {checkOwnership && (
+          <div className="dropdown dropdown-end">
+            <button
+              tabIndex={0}
+              className="btn btn-ghost btn-sm btn-circle"
+              aria-label="Post options"
+            >
+              <MoreHorizontal className="w-4 h-4" />
+            </button>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu menu-sm bg-base-100 border border-base-200 shadow-lg rounded-xl w-36 p-1 z-10"
+            >
+              <li>
+                <NavLink
+                  to={`/blogs/${id}/edit`}
+                  className="flex items-center gap-2 text-sm"
+                >
+                  <Pencil className="w-3.5 h-3.5" />
+                  Update
+                </NavLink>
+              </li>
+              <li>
+                <button
+                  onClick={handleDelete}
+                  className="flex items-center gap-2 text-sm text-error"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Delete
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
 
       <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-5">
         {blog.title}
@@ -110,14 +174,21 @@ function BolgPage() {
           )}
       </div>
 
-      <div className="mt-14 pt-8 border-t border-base-200 flex items-center justify-between">
+      {deleteError && (
+        <div className="flex items-center gap-2 mt-6 bg-error/10 border border-error/20 text-error rounded-xl px-4 py-3 text-sm">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          {deleteError}
+        </div>
+      )}
+
+      <div className="mt-8 pt-8 border-t border-base-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
             src={`https://ui-avatars.com/api/?name=${encodeURIComponent(blog.author.name)}&background=random&size=80`}
             alt={blog.author.name}
             className="w-12 h-12 rounded-full ring-2 ring-base-300"
           />
-          <div>
+          <div className="flex flex-col leading-tight">
             <p className="text-xs text-base-content/40 uppercase tracking-wider mb-0.5">
               Written by
             </p>

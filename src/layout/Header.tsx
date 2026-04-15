@@ -11,7 +11,7 @@ export default function Header() {
           <div className="w-8 h-8 rounded-lg bg-linear-to-br from-primary to-secondary flex items-center justify-center shadow-md group-hover:shadow-primary/40 transition-shadow">
             <BookOpen className="w-4 h-4 text-primary-content" />
           </div>
-          <span className="font-bold text-lg tracking-tight">Inkwell</span>
+          <span className="font-bold text-lg tracking-tight">TYPO</span>
         </NavLink>
 
         <nav className="flex items-center gap-1">

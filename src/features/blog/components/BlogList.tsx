@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
 import type { IBlog } from "../interfaces";
 import { NavLink } from "react-router";
+import { useAuth } from "@/context/AuthContext";
 
 const API_URL = "http://localhost:8080/api/v1/blogs";
 const ITEMS_PER_PAGE = 10;
@@ -11,6 +12,8 @@ function BlogList() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     setLoading(true);
@@ -34,9 +37,15 @@ function BlogList() {
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold tracking-tight mb-2 ">
-          Latest Stories
-        </h1>
+        {user ? (
+          <h1 className="text-4xl font-bold tracking-tight mb-2 ">
+            Welcome back, {user.name.split(" ")[0]}!
+          </h1>
+        ) : (
+          <h1 className="text-4xl font-bold tracking-tight mb-2 ">
+            Latest Stories
+          </h1>
+        )}
         <p className="text-base-content/50 text-base">
           Thoughts, ideas, and insights — freshly published.
         </p>

@@ -1,6 +1,8 @@
-import { NavLink } from "react-router";
+import { useAuth } from "@/context/AuthContext";
+import { Link, NavLink } from "react-router";
 
 export default function Header() {
+  const { user, logout } = useAuth();
   return (
     <header className="sticky top-0 z-50 bg-base-100/80 backdrop-blur-md border-b border-base-200 shadow-sm">
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -30,6 +32,7 @@ export default function Header() {
                   : "text-base-content/70 hover:text-base-content hover:bg-base-200"
               }`
             }
+            rounded-full
           >
             Blog
           </NavLink>
@@ -42,27 +45,59 @@ export default function Header() {
               role="button"
               className="btn btn-ghost btn-circle btn-sm avatar ring-2 ring-base-200 hover:ring-primary transition-all"
             >
-              <div className="w-8 rounded-full">
-                <img
-                  alt="User avatar"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+              <div className="w-8 h-8 rounded-full overflow-hidden bg-base-300 flex items-center justify-center">
+                {user && (
+                  <img
+                    alt="User avatar"
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random&size=80`}
+                  />
+                )}
+                {!user && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-5 h-5 text-base-content/50"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                    />
+                  </svg>
+                )}
               </div>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-40 border border-base-200"
-            >
-              <li>
-                <a className="text-sm">Profile</a>
-              </li>
-              <li>
-                <a className="text-sm">Settings</a>
-              </li>
-              <li>
-                <a className="text-sm text-error">Sign out</a>
-              </li>
-            </ul>
+            {user && (
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-40 border border-base-200"
+              >
+                <li>
+                  <a className="text-sm">Profile</a>
+                </li>
+                <li>
+                  <a className="text-sm text-error" onClick={logout}>
+                    Sign out
+                  </a>
+                </li>
+              </ul>
+            )}
+
+            {!user && (
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-40 border border-base-200"
+              >
+                <li>
+                  <Link to="/login" className="text-sm">
+                    Sign in
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </nav>
       </div>

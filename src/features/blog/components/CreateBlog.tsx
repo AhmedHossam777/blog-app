@@ -97,7 +97,10 @@ function CreateBlog() {
               boxShadow: "0 8px 24px -4px oklch(66% 0.27 278 / 0.25)",
             }}
           >
-            <FileText className="w-7 h-7" style={{ color: "oklch(72% 0.2 278)" }} />
+            <FileText
+              className="w-7 h-7"
+              style={{ color: "oklch(72% 0.2 278)" }}
+            />
           </div>
           <h1 className="text-3xl font-extrabold tracking-tight text-gradient">
             Write a new post
@@ -136,11 +139,17 @@ function CreateBlog() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Title */}
             <div>
-              <label htmlFor="title" className="block text-sm font-medium mb-1.5 text-base-content/80">
+              <label
+                htmlFor="title"
+                className="block text-sm font-medium mb-1.5 text-base-content/80"
+              >
                 Title
               </label>
               <div className="relative">
-                <Type className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: "oklch(55% 0.01 265)" }} />
+                <Type
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
+                  style={{ color: "oklch(55% 0.01 265)" }}
+                />
                 <input
                   type="text"
                   id="title"
@@ -156,7 +165,10 @@ function CreateBlog() {
 
             {/* Content */}
             <div>
-              <label htmlFor="content" className="block text-sm font-medium mb-1.5 text-base-content/80">
+              <label
+                htmlFor="content"
+                className="block text-sm font-medium mb-1.5 text-base-content/80"
+              >
                 Content
               </label>
               <textarea
@@ -175,7 +187,9 @@ function CreateBlog() {
             <div>
               <label className="block text-sm font-medium mb-1.5 text-base-content/80">
                 Cover image{" "}
-                <span className="text-base-content/35 font-normal">(optional)</span>
+                <span className="text-base-content/35 font-normal">
+                  (optional)
+                </span>
               </label>
 
               {preview ? (
@@ -196,7 +210,7 @@ function CreateBlog() {
                       background: "oklch(13% 0.022 265 / 0.85)",
                       backdropFilter: "blur(8px)",
                       border: "1px solid oklch(100% 0 0 / 0.1)",
-                      color: "oklch(75% 0.01 265)"
+                      color: "oklch(75% 0.01 265)",
                     }}
                     aria-label="Remove image"
                   >
@@ -206,7 +220,7 @@ function CreateBlog() {
                     className="px-3 py-2 text-xs truncate"
                     style={{
                       background: "oklch(13% 0.022 265 / 0.7)",
-                      color: "oklch(60% 0.01 265)"
+                      color: "oklch(60% 0.01 265)",
                     }}
                   >
                     {image?.name}
@@ -220,15 +234,15 @@ function CreateBlog() {
                   style={{
                     border: "2px dashed oklch(100% 0 0 / 0.1)",
                     color: "oklch(50% 0.01 265)",
-                    background: "transparent"
+                    background: "transparent",
                   }}
-                  onMouseEnter={e => {
+                  onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLElement;
                     el.style.borderColor = "oklch(66% 0.27 278 / 0.35)";
                     el.style.color = "oklch(66% 0.27 278 / 0.7)";
                     el.style.background = "oklch(66% 0.27 278 / 0.04)";
                   }}
-                  onMouseLeave={e => {
+                  onMouseLeave={(e) => {
                     const el = e.currentTarget as HTMLElement;
                     el.style.borderColor = "oklch(100% 0 0 / 0.1)";
                     el.style.color = "oklch(50% 0.01 265)";
@@ -254,7 +268,8 @@ function CreateBlog() {
               disabled={loading}
               className="w-full py-2.5 px-4 rounded-xl font-semibold text-sm active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
-                background: "linear-gradient(135deg, oklch(66% 0.27 278), oklch(60% 0.28 288))",
+                background:
+                  "linear-gradient(135deg, oklch(66% 0.27 278), oklch(60% 0.28 288))",
                 color: "oklch(98% 0.005 278)",
                 boxShadow:
                   "0 4px 20px -4px oklch(66% 0.27 278 / 0.5), 0 1px 0 0 oklch(100% 0 0 / 0.15) inset",

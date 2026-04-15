@@ -140,7 +140,7 @@ function BolgPage() {
             >
               <li>
                 <NavLink
-                  to={`/blogs/${id}/edit`}
+                  to={`/update-blog/${id}`}
                   className="flex items-center gap-2 text-sm rounded-lg text-base-content/70 hover:text-base-content hover:bg-white/6"
                 >
                   <Pencil className="w-3.5 h-3.5" />

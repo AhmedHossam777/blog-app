@@ -7,6 +7,7 @@ import Profile from "./features/profile/Profile";
 import Header from "./layout/Header";
 import { Route, Routes } from "react-router";
 import NotFound from "./layout/NotFound";
+import UpdateBlog from "./features/blog/components/UpdateBlog";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/create-blog" element={<CreateBlog />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/update-blog/:id" element={<UpdateBlog />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -28,14 +28,16 @@ function BlogCard({
         border: "1px solid transparent",
         transition: "all 0.3s ease",
       }}
-      onMouseEnter={e => {
+      onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLElement;
-        el.style.background = "linear-gradient(135deg, oklch(17% 0.025 265 / 0.7), oklch(14% 0.022 265 / 0.5))";
+        el.style.background =
+          "linear-gradient(135deg, oklch(17% 0.025 265 / 0.7), oklch(14% 0.022 265 / 0.5))";
         el.style.border = "1px solid oklch(66% 0.27 278 / 0.18)";
-        el.style.boxShadow = "0 0 0 1px oklch(66% 0.27 278 / 0.06), 0 8px 32px -8px oklch(66% 0.27 278 / 0.2), 0 20px 48px -12px oklch(0% 0 0 / 0.4)";
+        el.style.boxShadow =
+          "0 0 0 1px oklch(66% 0.27 278 / 0.06), 0 8px 32px -8px oklch(66% 0.27 278 / 0.2), 0 20px 48px -12px oklch(0% 0 0 / 0.4)";
         el.style.transform = "translateY(-1px)";
       }}
-      onMouseLeave={e => {
+      onMouseLeave={(e) => {
         const el = e.currentTarget as HTMLElement;
         el.style.background = "transparent";
         el.style.border = "1px solid transparent";
@@ -44,8 +46,10 @@ function BlogCard({
       }}
     >
       {imageUrl && (
-        <div className="sm:order-last shrink-0 w-full sm:w-36 h-44 sm:h-28 rounded-xl overflow-hidden"
-          style={{ boxShadow: "0 4px 16px -4px oklch(0% 0 0 / 0.5)" }}>
+        <div
+          className="sm:order-last shrink-0 w-full sm:w-36 h-44 sm:h-28 rounded-xl overflow-hidden"
+          style={{ boxShadow: "0 4px 16px -4px oklch(0% 0 0 / 0.5)" }}
+        >
           <img
             src={imageUrl}
             alt={title}
@@ -61,16 +65,22 @@ function BlogCard({
             src={`https://ui-avatars.com/api/?name=${encodeURIComponent(author)}&background=random&size=64`}
             alt={author}
             className="w-7 h-7 rounded-full"
-            style={{ boxShadow: "0 0 0 1.5px oklch(66% 0.27 278 / 0.3), 0 0 0 3px oklch(66% 0.27 278 / 0.08)" }}
+            style={{
+              boxShadow:
+                "0 0 0 1.5px oklch(66% 0.27 278 / 0.3), 0 0 0 3px oklch(66% 0.27 278 / 0.08)",
+            }}
           />
-          <span className="text-sm font-medium text-base-content/90">{author}</span>
+          <span className="text-sm font-medium text-base-content/90">
+            {author}
+          </span>
           <span className="text-base-content/25 text-sm">·</span>
           <span className="text-base-content/45 text-xs">{date}</span>
           <span className="text-base-content/25 text-sm">·</span>
-          <span className="text-base-content/45 text-xs">{readingTime} min read</span>
+          <span className="text-base-content/45 text-xs">
+            {readingTime} min read
+          </span>
         </div>
 
-        {/* Title & excerpt */}
         <div>
           <h2
             className="font-bold text-lg leading-snug line-clamp-2 mb-1.5 transition-all duration-300"
@@ -104,9 +114,10 @@ function BlogCard({
             <span
               className="text-xs px-2.5 py-0.5 rounded-full font-medium"
               style={{
-                background: "linear-gradient(135deg, oklch(66% 0.27 278 / 0.12), oklch(74% 0.17 58 / 0.08))",
+                background:
+                  "linear-gradient(135deg, oklch(66% 0.27 278 / 0.12), oklch(74% 0.17 58 / 0.08))",
                 border: "1px solid oklch(66% 0.27 278 / 0.2)",
-                color: "oklch(72% 0.15 278)"
+                color: "oklch(72% 0.15 278)",
               }}
             >
               Article

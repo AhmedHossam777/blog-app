@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import BlogCard from "./BlogCard";
 import type { IBlog } from "../interfaces";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "@/context/AuthContext";
+import { BookOpen, PenLine } from "lucide-react";
 
 const API_URL = "http://localhost:8080/api/v1/blogs";
 const ITEMS_PER_PAGE = 10;
@@ -14,6 +15,7 @@ function BlogList() {
   const [totalCount, setTotalCount] = useState(0);
 
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -74,20 +76,7 @@ function BlogList() {
       {!loading && blogs.length === 0 && (
         <div className="flex flex-col items-center gap-4 py-24 text-center">
           <div className="w-16 h-16 rounded-2xl bg-base-200 flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-8 h-8 text-base-content/30"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
-              />
-            </svg>
+            <BookOpen className="w-8 h-8 text-base-content/30" />
           </div>
           <p className="text-base-content/40 text-sm font-medium">
             No stories yet. Check back soon.
@@ -145,6 +134,16 @@ function BlogList() {
             »
           </button>
         </div>
+      )}
+      {user && (
+        <button
+          onClick={() => navigate("/create-blog")}
+          aria-label="Create new blog"
+          className="fixed bottom-8 right-8 z-50 flex items-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-content shadow-lg hover:bg-primary/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-95 transition-all font-semibold text-sm"
+        >
+          <PenLine className="size-5" />
+          Write
+        </button>
       )}
     </main>
   );

@@ -1,5 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
-import { AlertCircle, Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { AlertCircle, Eye, EyeOff, Lock, Mail, PenLine } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
@@ -22,7 +22,6 @@ function Login() {
       await login({ email, password });
       navigate("/");
     } catch {
-      // Keep error generic to avoid revealing whether email exists or password is wrong
       setError("Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
@@ -32,20 +31,9 @@ function Login() {
   return (
     <div className="min-h-[calc(100vh-64px)] bg-linear-to-br from-base-200 via-base-100 to-base-200 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Logo / brand mark */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              className="w-7 h-7 text-primary"
-            >
-              <path d="M12 20h9" />
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-            </svg>
+            <PenLine className="w-7 h-7 text-primary" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
           <p className="text-base-content/60 mt-1 text-sm">
@@ -53,7 +41,6 @@ function Login() {
           </p>
         </div>
 
-        {/* Card */}
         <div className="bg-base-100 border border-base-200 shadow-xl rounded-2xl p-8">
           {error && (
             <div className="flex items-start gap-3 bg-error/10 border border-error/20 text-error rounded-xl px-4 py-3 mb-6 text-sm">
@@ -63,9 +50,11 @@ function Login() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1.5">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium mb-1.5"
+              >
                 Email address
               </label>
               <div className="relative">
@@ -83,9 +72,11 @@ function Login() {
               </div>
             </div>
 
-            {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-1.5">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium mb-1.5"
+              >
                 Password
               </label>
               <div className="relative">

@@ -1,5 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
-import { AlertCircle, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
+import { AlertCircle, Eye, EyeOff, Lock, Mail, PenLine, User } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
@@ -74,17 +74,7 @@ function Register() {
         {/* Brand mark */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              className="w-7 h-7 text-primary"
-            >
-              <path d="M12 20h9" />
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-            </svg>
+            <PenLine className="w-7 h-7 text-primary" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight">Create an account</h1>
           <p className="text-base-content/60 mt-1 text-sm">

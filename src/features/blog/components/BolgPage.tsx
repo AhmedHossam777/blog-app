@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { IBlog } from "../interfaces";
 import { useParams, NavLink } from "react-router";
@@ -61,20 +62,7 @@ function BolgPage() {
         to="/"
         className="inline-flex items-center gap-1.5 text-sm text-base-content/50 hover:text-primary transition-colors mb-8 group"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15.75 19.5 8.25 12l7.5-7.5"
-          />
-        </svg>
+        <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
         All stories
       </NavLink>
 
@@ -138,20 +126,7 @@ function BolgPage() {
         </div>
         <NavLink to="/" className="btn btn-ghost btn-sm gap-1.5">
           More stories
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-3.5 h-3.5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m8.25 4.5 7.5 7.5-7.5 7.5"
-            />
-          </svg>
+          <ChevronRight className="w-3.5 h-3.5" />
         </NavLink>
       </div>
     </article>

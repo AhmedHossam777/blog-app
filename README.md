@@ -1,73 +1,84 @@
-# React + TypeScript + Vite
+# TYPO — Blog App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Medium-inspired blogging platform built with React, TypeScript, and Tailwind CSS. Supports Markdown in blog posts, JWT authentication with token refresh, and a clean light-mode UI.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **TypeScript**
+- **Vite** — build tool
+- **Tailwind CSS v4** + **DaisyUI v5** — styling
+- **react-markdown** + **remark-gfm** — Markdown rendering
+- **React Router v7** — client-side routing
+- **Lucide React** — icons
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Browse, create, update, and delete blog posts
+- Markdown support in post body (headings, code blocks, tables, blockquotes, etc.)
+- JWT authentication with automatic token refresh
+- Protected routes (create/update/delete require login)
+- Image upload for post covers
+- Pagination
+- User profile page with personal posts
+- Medium-style light UI — Charter serif for content, clean sans-serif for UI
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 18+
+- npm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+### Build
+
+```bash
+npm run build
+```
+
+## Project Structure
+
+```
+src/
+├── components/         # Shared components
+├── context/            # Auth context
+├── features/
+│   ├── auth/           # Login & Register
+│   ├── blog/           # BlogList, BlogCard, BolgPage, CreateBlog, UpdateBlog
+│   ├── comments/       # Comment component
+│   └── profile/        # User profile page
+├── layout/             # Header, NotFound
+├── lib/                # apiClient (fetch wrapper with auth & token refresh)
+└── types/              # TypeScript interfaces
+```
+
+## API
+
+Backed by a Go + MongoDB REST API deployed on Render.
+
+Base URL: `https://go-mongo-api.onrender.com/api/v1`
+
+Key endpoints:
+
+| Method | Endpoint               | Auth | Description            |
+| ------ | ---------------------- | ---- | ---------------------- |
+| GET    | `/blogs`               | No   | List blogs (paginated) |
+| GET    | `/blogs/:id`           | No   | Get single blog        |
+| POST   | `/blogs`               | Yes  | Create blog            |
+| PUT    | `/blogs/:id`           | Yes  | Update blog            |
+| DELETE | `/blogs/:id`           | Yes  | Delete blog            |
+| GET    | `/blogs/my`            | Yes  | Current user's blogs   |
+| POST   | `/auth/login`          | No   | Login                  |
+| POST   | `/auth/register`       | No   | Register               |
+| POST   | `/auth/refresh-tokens` | No   | Refresh JWT            |

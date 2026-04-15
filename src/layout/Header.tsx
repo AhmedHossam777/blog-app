@@ -5,31 +5,32 @@ import { Link, NavLink } from "react-router";
 export default function Header() {
   const { user, logout } = useAuth();
   return (
-    <header className="sticky top-0 z-50 border-b border-white/6"
+    <header
+      className="sticky top-0 z-50"
       style={{
-        background: "linear-gradient(to bottom, oklch(14% 0.024 265 / 0.95), oklch(11% 0.022 265 / 0.85))",
-        backdropFilter: "blur(24px) saturate(180%)",
-        boxShadow: "0 1px 0 0 oklch(66% 0.27 278 / 0.08), 0 4px 24px -4px oklch(0% 0 0 / 0.4)"
-      }}>
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+        background: "rgba(255,255,255,0.97)",
+        backdropFilter: "blur(8px)",
+        borderBottom: "1px solid #e6e6e6",
+      }}
+    >
+      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         {/* Brand */}
         <NavLink to="/" className="flex items-center gap-2.5 group">
           <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center shadow-lg transition-all duration-300 group-hover:scale-105"
+            className="w-8 h-8 flex items-center justify-center transition-all duration-200 group-hover:opacity-80"
             style={{
-              background: "linear-gradient(135deg, oklch(66% 0.27 278), oklch(74% 0.17 58))",
-              boxShadow: "0 4px 16px -2px oklch(66% 0.27 278 / 0.5), 0 0 0 1px oklch(66% 0.27 278 / 0.2)"
+              background: "#1a1a1a",
+              borderRadius: "2px",
             }}
           >
             <BookOpen className="w-4 h-4 text-white" />
           </div>
           <span
-            className="font-bold text-lg tracking-tight"
+            className="font-bold text-xl tracking-tighter"
             style={{
-              background: "linear-gradient(135deg, oklch(95% 0.005 265) 0%, oklch(75% 0.12 278) 100%)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              WebkitTextFillColor: "transparent"
+              fontFamily: "'sohne', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              color: "#1a1a1a",
+              letterSpacing: "-0.02em",
             }}
           >
             TYPO
@@ -41,22 +42,15 @@ export default function Header() {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                isActive
-                  ? "text-white"
-                  : "text-base-content/50 hover:text-base-content/90 hover:bg-white/6"
+              `px-4 py-1.5 text-sm font-medium transition-colors duration-150 ${
+                isActive ? "text-[#1a1a1a]" : "text-[#757575] hover:text-[#292929]"
               }`
             }
-            style={({ isActive }) => isActive ? {
-              background: "linear-gradient(135deg, oklch(66% 0.27 278 / 0.25), oklch(74% 0.17 58 / 0.12))",
-              border: "1px solid oklch(66% 0.27 278 / 0.3)",
-              boxShadow: "0 2px 12px -2px oklch(66% 0.27 278 / 0.25)"
-            } : {}}
           >
             Feed
           </NavLink>
 
-          <div className="w-px h-5 bg-white/8 mx-2" />
+          <div className="w-px h-4 bg-[#e6e6e6] mx-2" />
 
           {/* Avatar dropdown */}
           <div className="dropdown dropdown-end">
@@ -65,19 +59,10 @@ export default function Header() {
               role="button"
               className="btn btn-ghost btn-circle btn-sm avatar transition-all duration-200"
               style={{
-                border: "1.5px solid oklch(100% 0 0 / 0.1)",
-                boxShadow: "0 0 0 2px transparent"
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.border = "1.5px solid oklch(66% 0.27 278 / 0.5)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 3px oklch(66% 0.27 278 / 0.12)";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.border = "1.5px solid oklch(100% 0 0 / 0.1)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 2px transparent";
+                border: "1px solid #e6e6e6",
               }}
             >
-              <div className="w-8 h-8 rounded-full overflow-hidden bg-base-300 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full overflow-hidden bg-[#f2f2f2] flex items-center justify-center">
                 {user && (
                   <img
                     alt="User avatar"
@@ -85,7 +70,7 @@ export default function Header() {
                   />
                 )}
                 {!user && (
-                  <UserRound className="w-5 h-5 text-base-content/40" />
+                  <UserRound className="w-4 h-4 text-[#757575]" />
                 )}
               </div>
             </div>
@@ -93,21 +78,27 @@ export default function Header() {
             {user && (
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-50 p-2 rounded-2xl w-44"
+                className="menu menu-sm dropdown-content mt-2 z-50 p-1.5 w-44"
                 style={{
-                  background: "linear-gradient(135deg, oklch(17% 0.025 265 / 0.95), oklch(14% 0.022 265 / 0.9))",
-                  backdropFilter: "blur(24px)",
-                  border: "1px solid oklch(100% 0 0 / 0.08)",
-                  boxShadow: "0 8px 40px -8px oklch(0% 0 0 / 0.6), 0 1px 0 0 oklch(100% 0 0 / 0.05) inset"
+                  background: "#fff",
+                  border: "1px solid #e6e6e6",
+                  borderRadius: "4px",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
                 }}
               >
                 <li>
-                  <Link to="/profile" className="text-sm rounded-xl text-base-content/80 hover:text-base-content hover:bg-white/6">
+                  <Link
+                    to="/profile"
+                    className="text-sm rounded text-[#292929] hover:bg-[#f2f2f2] hover:text-[#1a1a1a]"
+                  >
                     Profile
                   </Link>
                 </li>
                 <li>
-                  <a className="text-sm rounded-xl text-error/80 hover:text-error hover:bg-error/10" onClick={logout}>
+                  <a
+                    className="text-sm rounded text-[#c62828] hover:bg-[#fdecea] hover:text-[#b71c1c]"
+                    onClick={logout}
+                  >
                     Sign out
                   </a>
                 </li>
@@ -117,16 +108,19 @@ export default function Header() {
             {!user && (
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-50 p-2 rounded-2xl w-44"
+                className="menu menu-sm dropdown-content mt-2 z-50 p-1.5 w-44"
                 style={{
-                  background: "linear-gradient(135deg, oklch(17% 0.025 265 / 0.95), oklch(14% 0.022 265 / 0.9))",
-                  backdropFilter: "blur(24px)",
-                  border: "1px solid oklch(100% 0 0 / 0.08)",
-                  boxShadow: "0 8px 40px -8px oklch(0% 0 0 / 0.6), 0 1px 0 0 oklch(100% 0 0 / 0.05) inset"
+                  background: "#fff",
+                  border: "1px solid #e6e6e6",
+                  borderRadius: "4px",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
                 }}
               >
                 <li>
-                  <Link to="/login" className="text-sm rounded-xl text-base-content/80 hover:text-base-content hover:bg-white/6">
+                  <Link
+                    to="/login"
+                    className="text-sm rounded text-[#292929] hover:bg-[#f2f2f2] hover:text-[#1a1a1a]"
+                  >
                     Sign in
                   </Link>
                 </li>

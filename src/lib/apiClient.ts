@@ -1,6 +1,6 @@
 import type { IRequestOptions } from "./IRequest";
 
-const BASE_URL = "http://localhost:8080/api/v1";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL as string;
 
 export const getAccessToken = (): string | null => {
   return localStorage.getItem("accessToken");

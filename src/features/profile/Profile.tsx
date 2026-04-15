@@ -37,43 +37,49 @@ function Profile() {
       {/* Profile header */}
       <div
         className="flex flex-col sm:flex-row items-center sm:items-end gap-5 mb-10 pb-8"
-        style={{ borderBottom: "1px solid oklch(100% 0 0 / 0.06)" }}
+        style={{ borderBottom: "1px solid #e6e6e6" }}
       >
         <div className="relative shrink-0">
           <img
             alt="User avatar"
             src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random&size=128`}
             className="w-24 h-24 rounded-full"
-            style={{
-              boxShadow:
-                "0 0 0 3px oklch(66% 0.27 278 / 0.3), 0 0 0 6px oklch(66% 0.27 278 / 0.08), 0 8px 32px -8px oklch(0% 0 0 / 0.5)",
-            }}
+            style={{ border: "3px solid #e6e6e6" }}
           />
           {/* Online dot */}
           <div
-            className="absolute bottom-1 right-1 w-3.5 h-3.5 rounded-full"
+            className="absolute bottom-1 right-1 w-3 h-3 rounded-full"
             style={{
-              background: "oklch(65% 0.25 150)",
-              border: "2px solid oklch(11% 0.022 265)",
-              boxShadow: "0 0 8px oklch(65% 0.25 150 / 0.6)",
+              background: "#1a8917",
+              border: "2px solid #fff",
             }}
           />
         </div>
 
         <div className="text-center sm:text-left flex-1">
-          <h1 className="text-3xl font-extrabold tracking-tight text-base-content/95">
-            {user.name}
-          </h1>
-          <p className="text-base-content/40 text-sm mt-0.5">{user.email}</p>
-          <div
-            className="inline-flex items-center gap-1.5 mt-3 text-sm px-3 py-1 rounded-full"
+          <h1
+            className="text-3xl font-bold tracking-tight"
             style={{
-              background: "linear-gradient(135deg, oklch(66% 0.27 278 / 0.1), oklch(74% 0.17 58 / 0.06))",
-              border: "1px solid oklch(66% 0.27 278 / 0.2)",
-              color: "oklch(72% 0.15 278)",
+              fontFamily: "'sohne', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              color: "#1a1a1a",
+              letterSpacing: "-0.02em",
             }}
           >
-            <FileText className="w-3.5 h-3.5" />
+            {user.name}
+          </h1>
+          <p className="text-sm mt-0.5" style={{ color: "#757575" }}>
+            {user.email}
+          </p>
+          <div
+            className="inline-flex items-center gap-1.5 mt-3 text-sm px-3 py-1"
+            style={{
+              background: "#f2f2f2",
+              border: "1px solid #e6e6e6",
+              borderRadius: "999px",
+              color: "#292929",
+            }}
+          >
+            <FileText className="w-3.5 h-3.5" style={{ color: "#1a8917" }} />
             <span>
               <span className="font-semibold">{count}</span>{" "}
               {count === 1 ? "story" : "stories"} published
@@ -84,25 +90,30 @@ function Profile() {
 
       {/* Section heading */}
       <div className="flex items-center gap-3 mb-6">
-        <h2 className="text-lg font-semibold text-base-content/90">Your stories</h2>
-        <div className="flex-1 h-px" style={{ background: "oklch(100% 0 0 / 0.04)" }} />
+        <h2
+          className="text-lg font-semibold"
+          style={{ color: "#1a1a1a", fontFamily: "'sohne', 'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+        >
+          Your stories
+        </h2>
+        <div className="flex-1 h-px" style={{ background: "#e6e6e6" }} />
       </div>
 
       {/* Skeleton */}
       {loading && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="flex gap-5 p-5 rounded-2xl">
+            <div key={i} className="flex gap-5 py-8 border-b border-[#e6e6e6]">
               <div className="flex-1 flex flex-col gap-3">
                 <div className="flex gap-2 items-center">
-                  <div className="w-7 h-7 rounded-full shimmer" />
-                  <div className="h-3 w-28 rounded-full shimmer" />
+                  <div className="w-5 h-5 rounded-full shimmer" />
+                  <div className="h-2.5 w-24 rounded shimmer" />
                 </div>
-                <div className="h-5 w-3/4 rounded-full shimmer" />
-                <div className="h-3 w-full rounded-full shimmer opacity-70" />
-                <div className="h-3 w-5/6 rounded-full shimmer opacity-50" />
+                <div className="h-5 w-3/4 rounded shimmer" />
+                <div className="h-3 w-full rounded shimmer opacity-70" />
+                <div className="h-3 w-5/6 rounded shimmer opacity-50" />
               </div>
-              <div className="w-28 h-28 rounded-xl shimmer shrink-0" />
+              <div className="w-24 h-20 rounded shimmer shrink-0" />
             </div>
           ))}
         </div>
@@ -112,24 +123,25 @@ function Profile() {
       {!loading && blogs.length === 0 && (
         <div className="flex flex-col items-center gap-4 py-20 text-center">
           <div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center"
+            className="w-14 h-14 flex items-center justify-center"
             style={{
-              background: "linear-gradient(135deg, oklch(17% 0.025 265), oklch(21% 0.026 265))",
-              border: "1px solid oklch(66% 0.27 278 / 0.12)",
+              background: "#f2f2f2",
+              border: "1px solid #e6e6e6",
+              borderRadius: "4px",
             }}
           >
-            <BookOpen className="w-8 h-8" style={{ color: "oklch(66% 0.27 278 / 0.5)" }} />
+            <BookOpen className="w-7 h-7" style={{ color: "#757575" }} />
           </div>
-          <p className="text-base-content/35 text-sm font-medium">
+          <p className="text-sm" style={{ color: "#757575" }}>
             You haven't published any stories yet.
           </p>
           <NavLink
             to="/create-blog"
-            className="px-5 py-2 rounded-full text-sm font-semibold transition-all"
+            className="px-5 py-2 text-sm font-semibold transition-all"
             style={{
-              background: "linear-gradient(135deg, oklch(66% 0.27 278), oklch(60% 0.28 288))",
-              color: "oklch(98% 0.005 278)",
-              boxShadow: "0 4px 16px -4px oklch(66% 0.27 278 / 0.4)",
+              background: "#1a1a1a",
+              color: "#fff",
+              borderRadius: "999px",
             }}
           >
             Write your first story
@@ -140,18 +152,12 @@ function Profile() {
       {/* Blog list */}
       {!loading && blogs.length > 0 && (
         <div className="flex flex-col">
-          {blogs.map((blog, idx) => (
+          {blogs.map((blog) => (
             <NavLink
               to={`/blogs/${blog.id}`}
               key={blog.id}
               className="outline-none"
             >
-              {idx > 0 && (
-                <div
-                  className="mx-5 h-px"
-                  style={{ background: "oklch(100% 0 0 / 0.04)" }}
-                />
-              )}
               <BlogCard
                 title={blog.title}
                 content={blog.content}

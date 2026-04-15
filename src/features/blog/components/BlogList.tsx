@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from "react-router";
 import { useAuth } from "@/context/AuthContext";
 import { BookOpen, PenLine } from "lucide-react";
 
-const API_URL = "http://localhost:8080/api/v1/blogs";
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/blogs`;
 const ITEMS_PER_PAGE = 10;
 
 function BlogList() {
@@ -38,39 +38,53 @@ function BlogList() {
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-10">
-      <div className="mb-10">
+      <div className="mb-8">
         {user ? (
-          <h1 className="text-4xl font-extrabold tracking-tight mb-2">
-            <span className="text-gradient">Welcome back,</span>{" "}
-            <span className="text-base-content/90">
-              {user.name.split(" ")[0]}
-            </span>
+          <h1
+            className="text-3xl font-bold tracking-tight mb-1"
+            style={{
+              fontFamily:
+                "'sohne', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              color: "#1a1a1a",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Welcome back,{" "}
+            <span style={{ color: "#1a8917" }}>{user.name.split(" ")[0]}</span>
           </h1>
         ) : (
-          <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-gradient">
+          <h1
+            className="text-3xl font-bold tracking-tight mb-1"
+            style={{
+              fontFamily:
+                "'sohne', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              color: "#1a1a1a",
+              letterSpacing: "-0.02em",
+            }}
+          >
             Latest Stories
           </h1>
         )}
-        <p className="text-base-content/45 text-base">
+        <p className="text-sm" style={{ color: "#757575" }}>
           Thoughts, ideas, and insights — freshly published.
         </p>
-        <div className="mt-5 divider-gradient" />
+        <div className="mt-5 divider-medium" />
       </div>
 
       {loading && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="flex gap-5 p-5 rounded-2xl">
+            <div key={i} className="flex gap-5 py-8 border-b border-[#e6e6e6]">
               <div className="flex-1 flex flex-col gap-3">
                 <div className="flex gap-2 items-center">
-                  <div className="w-7 h-7 rounded-full shimmer" />
-                  <div className="h-3 w-28 rounded-full shimmer" />
+                  <div className="w-5 h-5 rounded-full shimmer" />
+                  <div className="h-2.5 w-24 rounded-full shimmer" />
                 </div>
-                <div className="h-5 w-3/4 rounded-full shimmer" />
-                <div className="h-3 w-full rounded-full shimmer opacity-70" />
-                <div className="h-3 w-5/6 rounded-full shimmer opacity-50" />
+                <div className="h-5 w-3/4 rounded shimmer" />
+                <div className="h-3 w-full rounded shimmer opacity-70" />
+                <div className="h-3 w-5/6 rounded shimmer opacity-50" />
               </div>
-              <div className="w-28 h-28 rounded-xl shimmer shrink-0" />
+              <div className="w-28 h-20 rounded shimmer shrink-0" />
             </div>
           ))}
         </div>
@@ -79,39 +93,29 @@ function BlogList() {
       {!loading && blogs.length === 0 && (
         <div className="flex flex-col items-center gap-4 py-24 text-center">
           <div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center"
+            className="w-14 h-14 flex items-center justify-center"
             style={{
-              background:
-                "linear-gradient(135deg, oklch(17% 0.025 265), oklch(21% 0.026 265))",
-              border: "1px solid oklch(66% 0.27 278 / 0.12)",
+              background: "#f2f2f2",
+              borderRadius: "4px",
+              border: "1px solid #e6e6e6",
             }}
           >
-            <BookOpen
-              className="w-8 h-8"
-              style={{ color: "oklch(66% 0.27 278 / 0.5)" }}
-            />
+            <BookOpen className="w-7 h-7" style={{ color: "#757575" }} />
           </div>
-          <p className="text-base-content/35 text-sm font-medium">
+          <p className="text-sm" style={{ color: "#757575" }}>
             No stories yet. Check back soon.
           </p>
         </div>
       )}
 
-      {/* Blog list */}
       {!loading && blogs.length > 0 && (
         <div className="flex flex-col">
-          {blogs.map((blog, idx) => (
+          {blogs.map((blog) => (
             <NavLink
               to={`/blogs/${blog.id}`}
               key={blog.id}
               className="outline-none"
             >
-              {idx > 0 && (
-                <div
-                  className="mx-5 h-px"
-                  style={{ background: "oklch(100% 0 0 / 0.04)" }}
-                />
-              )}
               <BlogCard
                 title={blog.title}
                 content={blog.content}
@@ -131,11 +135,12 @@ function BlogList() {
       {pageCount > 1 && (
         <div className="flex justify-center mt-8 gap-1">
           <button
-            className="cursor-pointer px-3 py-1.5 rounded-lg text-sm font-medium transition-all disabled:opacity-30"
+            className="cursor-pointer px-3 py-1.5 text-sm font-medium transition-all disabled:opacity-30"
             style={{
-              background: "oklch(17% 0.025 265)",
-              border: "1px solid oklch(100% 0 0 / 0.06)",
-              color: "oklch(75% 0.01 265)",
+              background: "#fff",
+              border: "1px solid #e6e6e6",
+              borderRadius: "2px",
+              color: "#292929",
             }}
             disabled={currentPage === 1}
             onClick={() => handleSelectCurrentPage(currentPage - 1)}
@@ -145,20 +150,20 @@ function BlogList() {
           {Array.from({ length: pageCount }, (_, i) => (
             <button
               key={i}
-              className="cursor-pointer px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
+              className="cursor-pointer px-3 py-1.5 text-sm font-medium transition-all"
               style={
                 currentPage === i + 1
                   ? {
-                      background:
-                        "linear-gradient(135deg, oklch(66% 0.27 278 / 0.25), oklch(74% 0.17 58 / 0.12))",
-                      border: "1px solid oklch(66% 0.27 278 / 0.35)",
-                      color: "oklch(88% 0.08 278)",
-                      boxShadow: "0 2px 12px -2px oklch(66% 0.27 278 / 0.25)",
+                      background: "#1a8917",
+                      border: "1px solid #1a8917",
+                      borderRadius: "2px",
+                      color: "#fff",
                     }
                   : {
-                      background: "oklch(17% 0.025 265)",
-                      border: "1px solid oklch(100% 0 0 / 0.06)",
-                      color: "oklch(65% 0.01 265)",
+                      background: "#fff",
+                      border: "1px solid #e6e6e6",
+                      borderRadius: "2px",
+                      color: "#292929",
                     }
               }
               onClick={() => handleSelectCurrentPage(i + 1)}
@@ -167,11 +172,12 @@ function BlogList() {
             </button>
           ))}
           <button
-            className="cursor-pointer px-3 py-1.5 rounded-lg text-sm font-medium transition-all disabled:opacity-30"
+            className="cursor-pointer px-3 py-1.5 text-sm font-medium transition-all disabled:opacity-30"
             style={{
-              background: "oklch(17% 0.025 265)",
-              border: "1px solid oklch(100% 0 0 / 0.06)",
-              color: "oklch(75% 0.01 265)",
+              background: "#fff",
+              border: "1px solid #e6e6e6",
+              borderRadius: "2px",
+              color: "#292929",
             }}
             disabled={currentPage === pageCount}
             onClick={() => handleSelectCurrentPage(currentPage + 1)}
@@ -185,16 +191,15 @@ function BlogList() {
         <button
           onClick={() => navigate("/create-blog")}
           aria-label="Create new blog"
-          className="cursor-pointer fixed bottom-8 right-8 z-50 flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-sm active:scale-95 transition-all btn-float"
+          className="cursor-pointer fixed bottom-8 right-8 z-50 flex items-center gap-2 px-5 py-2.5 font-semibold text-sm active:scale-95 transition-all"
           style={{
-            background:
-              "linear-gradient(135deg, oklch(66% 0.27 278), oklch(60% 0.28 288))",
-            color: "oklch(98% 0.005 278)",
-            boxShadow:
-              "0 8px 32px -4px oklch(66% 0.27 278 / 0.5), 0 0 0 1px oklch(66% 0.27 278 / 0.2)",
+            background: "#1a1a1a",
+            color: "#fff",
+            borderRadius: "999px",
+            boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
           }}
         >
-          <PenLine className="size-5" />
+          <PenLine className="size-4" />
           Write
         </button>
       )}

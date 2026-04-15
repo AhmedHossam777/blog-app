@@ -5,9 +5,10 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 
 const inputStyle = {
-  background: "oklch(13% 0.022 265 / 0.8)",
-  border: "1px solid oklch(100% 0 0 / 0.08)",
-  color: "oklch(93% 0.008 265)",
+  background: "#fff",
+  border: "1px solid #d0d0d0",
+  color: "#292929",
+  borderRadius: "4px",
 };
 
 function CreateBlog() {
@@ -79,56 +80,49 @@ function CreateBlog() {
 
   return (
     <div
-      className="min-h-[calc(100vh-64px)] flex items-start justify-center px-4 py-12"
-      style={{
-        background:
-          "radial-gradient(ellipse 80% 60% at 50% -10%, oklch(66% 0.27 278 / 0.12), transparent), oklch(11% 0.022 265)",
-      }}
+      className="min-h-[calc(100vh-56px)] flex items-start justify-center px-4 py-12"
+      style={{ background: "#fff" }}
     >
       <div className="w-full max-w-2xl">
         {/* Icon + title */}
         <div className="text-center mb-8">
           <div
-            className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-4"
+            className="inline-flex items-center justify-center w-12 h-12 mb-4"
+            style={{ background: "#1a1a1a", borderRadius: "2px" }}
+          >
+            <FileText className="w-6 h-6 text-white" />
+          </div>
+          <h1
+            className="text-3xl font-bold tracking-tight"
             style={{
-              background:
-                "linear-gradient(135deg, oklch(66% 0.27 278 / 0.2), oklch(74% 0.17 58 / 0.12))",
-              border: "1px solid oklch(66% 0.27 278 / 0.3)",
-              boxShadow: "0 8px 24px -4px oklch(66% 0.27 278 / 0.25)",
+              fontFamily: "'sohne', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+              color: "#1a1a1a",
+              letterSpacing: "-0.02em",
             }}
           >
-            <FileText
-              className="w-7 h-7"
-              style={{ color: "oklch(72% 0.2 278)" }}
-            />
-          </div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-gradient">
             Write a new post
           </h1>
-          <p className="text-base-content/45 mt-1 text-sm">
-            Share your thoughts with the world
+          <p className="mt-1 text-sm" style={{ color: "#757575" }}>
+            Share your thoughts with the world. Markdown is supported.
           </p>
         </div>
 
         {/* Card */}
         <div
-          className="rounded-2xl p-8 border-gradient"
+          className="p-8"
           style={{
-            background:
-              "linear-gradient(135deg, oklch(16% 0.024 265 / 0.9), oklch(13% 0.022 265 / 0.85))",
-            backdropFilter: "blur(24px)",
-            border: "1px solid oklch(100% 0 0 / 0.07)",
-            boxShadow:
-              "0 1px 0 0 oklch(100% 0 0 / 0.05) inset, 0 24px 64px -16px oklch(0% 0 0 / 0.5)",
+            border: "1px solid #e6e6e6",
+            borderRadius: "4px",
           }}
         >
           {error && (
             <div
-              className="flex items-start gap-3 rounded-xl px-4 py-3 mb-6 text-sm"
+              className="flex items-start gap-3 px-4 py-3 mb-6 text-sm"
               style={{
-                background: "oklch(64% 0.27 22 / 0.08)",
-                border: "1px solid oklch(64% 0.27 22 / 0.2)",
-                color: "oklch(75% 0.2 22)",
+                background: "#fdecea",
+                border: "1px solid #f5c6cb",
+                borderRadius: "4px",
+                color: "#c62828",
               }}
             >
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
@@ -141,14 +135,15 @@ function CreateBlog() {
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-medium mb-1.5 text-base-content/80"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "#292929" }}
               >
                 Title
               </label>
               <div className="relative">
                 <Type
                   className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none"
-                  style={{ color: "oklch(55% 0.01 265)" }}
+                  style={{ color: "#aaa" }}
                 />
                 <input
                   type="text"
@@ -157,7 +152,7 @@ function CreateBlog() {
                   onChange={(e) => setTitle(e.target.value)}
                   required
                   placeholder="Give your post a title"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm transition-all outline-none"
+                  className="w-full pl-10 pr-4 py-2.5 text-sm transition-all outline-none"
                   style={inputStyle}
                 />
               </div>
@@ -167,35 +162,50 @@ function CreateBlog() {
             <div>
               <label
                 htmlFor="content"
-                className="block text-sm font-medium mb-1.5 text-base-content/80"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "#292929" }}
               >
-                Content
+                Content{" "}
+                <span className="font-normal text-xs" style={{ color: "#aaa" }}>
+                  — Markdown supported
+                </span>
               </label>
               <textarea
                 id="content"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 required
-                rows={8}
-                placeholder="Write your post content here…"
-                className="w-full px-4 py-2.5 rounded-xl text-sm transition-all outline-none resize-none"
-                style={inputStyle}
+                rows={12}
+                placeholder={`Write your post content here…\n\n# Heading\n**bold**, *italic*, \`code\`, [link](url)\n\n> blockquote`}
+                className="w-full px-4 py-2.5 text-sm transition-all outline-none resize-y font-mono"
+                style={{
+                  ...inputStyle,
+                  fontFamily: "'Courier New', Courier, monospace",
+                  lineHeight: "1.6",
+                  fontSize: "0.875rem",
+                }}
               />
             </div>
 
             {/* Cover image */}
             <div>
-              <label className="block text-sm font-medium mb-1.5 text-base-content/80">
+              <label
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "#292929" }}
+              >
                 Cover image{" "}
-                <span className="text-base-content/35 font-normal">
+                <span className="font-normal" style={{ color: "#aaa" }}>
                   (optional)
                 </span>
               </label>
 
               {preview ? (
                 <div
-                  className="relative rounded-xl overflow-hidden"
-                  style={{ border: "1px solid oklch(100% 0 0 / 0.08)" }}
+                  className="relative overflow-hidden"
+                  style={{
+                    border: "1px solid #d0d0d0",
+                    borderRadius: "4px",
+                  }}
                 >
                   <img
                     src={preview}
@@ -207,10 +217,9 @@ function CreateBlog() {
                     onClick={clearImage}
                     className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center transition-all"
                     style={{
-                      background: "oklch(13% 0.022 265 / 0.85)",
-                      backdropFilter: "blur(8px)",
-                      border: "1px solid oklch(100% 0 0 / 0.1)",
-                      color: "oklch(75% 0.01 265)",
+                      background: "rgba(255,255,255,0.9)",
+                      border: "1px solid #d0d0d0",
+                      color: "#292929",
                     }}
                     aria-label="Remove image"
                   >
@@ -219,8 +228,9 @@ function CreateBlog() {
                   <div
                     className="px-3 py-2 text-xs truncate"
                     style={{
-                      background: "oklch(13% 0.022 265 / 0.7)",
-                      color: "oklch(60% 0.01 265)",
+                      background: "#f9f9f9",
+                      borderTop: "1px solid #e6e6e6",
+                      color: "#757575",
                     }}
                   >
                     {image?.name}
@@ -230,26 +240,27 @@ function CreateBlog() {
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="w-full h-32 rounded-xl flex flex-col items-center justify-center gap-2 transition-all"
+                  className="w-full h-28 flex flex-col items-center justify-center gap-2 transition-all"
                   style={{
-                    border: "2px dashed oklch(100% 0 0 / 0.1)",
-                    color: "oklch(50% 0.01 265)",
+                    border: "2px dashed #d0d0d0",
+                    borderRadius: "4px",
+                    color: "#aaa",
                     background: "transparent",
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "oklch(66% 0.27 278 / 0.35)";
-                    el.style.color = "oklch(66% 0.27 278 / 0.7)";
-                    el.style.background = "oklch(66% 0.27 278 / 0.04)";
+                    el.style.borderColor = "#1a8917";
+                    el.style.color = "#1a8917";
+                    el.style.background = "#f0faf0";
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = "oklch(100% 0 0 / 0.1)";
-                    el.style.color = "oklch(50% 0.01 265)";
+                    el.style.borderColor = "#d0d0d0";
+                    el.style.color = "#aaa";
                     el.style.background = "transparent";
                   }}
                 >
-                  <ImagePlus className="w-6 h-6" />
+                  <ImagePlus className="w-5 h-5" />
                   <span className="text-sm">Click to upload a cover image</span>
                 </button>
               )}
@@ -266,13 +277,11 @@ function CreateBlog() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 rounded-xl font-semibold text-sm active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-2.5 px-4 font-semibold text-sm active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
-                background:
-                  "linear-gradient(135deg, oklch(66% 0.27 278), oklch(60% 0.28 288))",
-                color: "oklch(98% 0.005 278)",
-                boxShadow:
-                  "0 4px 20px -4px oklch(66% 0.27 278 / 0.5), 0 1px 0 0 oklch(100% 0 0 / 0.15) inset",
+                background: "#1a1a1a",
+                color: "#fff",
+                borderRadius: "999px",
               }}
             >
               {loading ? (

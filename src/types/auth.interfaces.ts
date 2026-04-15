@@ -27,3 +27,18 @@ export interface AuthResponse {
     };
   };
 }
+
+export interface GetUserResponse {
+  success: boolean;
+  data: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}

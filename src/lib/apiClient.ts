@@ -67,10 +67,10 @@ const refreshAccessToken = async (): Promise<string | null> => {
   return refreshPromise;
 };
 
-export const apiClient = async (
+export const apiClient = async <T>(
   endpoint: string,
   options: IRequestOptions = {},
-) => {
+): Promise<T> => {
   const { method = "GET", body, headers = {}, requiresAuth = true } = options;
   const config: RequestInit = {
     method,

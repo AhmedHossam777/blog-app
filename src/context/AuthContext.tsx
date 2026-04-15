@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (credentials: LoginCredentials) => {
     const response = await apiClient<AuthResponse>("/auth/login", {
       method: "POST",
-      body: JSON.stringify(credentials),
+      body: credentials,
       requiresAuth: false,
     });
     setUser(response.data.user);
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const register = async (credentials: RegisterCredentials) => {
     const response = await apiClient<AuthResponse>("/auth/register", {
       method: "POST",
-      body: JSON.stringify(credentials),
+      body: credentials,
       requiresAuth: false,
     });
     setUser(response.data.user);

@@ -57,7 +57,6 @@ function BolgPage() {
 
   return (
     <article className="max-w-3xl mx-auto px-4 py-10">
-      {/* Back link */}
       <NavLink
         to="/"
         className="inline-flex items-center gap-1.5 text-sm text-base-content/50 hover:text-primary transition-colors mb-8 group"
@@ -79,12 +78,10 @@ function BolgPage() {
         All stories
       </NavLink>
 
-      {/* Title */}
       <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-5">
         {blog.title}
       </h1>
 
-      {/* Meta row */}
       <div className="flex items-center gap-3 mb-8 pb-8 border-b border-base-200">
         <img
           src={`https://ui-avatars.com/api/?name=${encodeURIComponent(blog.author.name)}&background=random&size=80`}
@@ -107,7 +104,6 @@ function BolgPage() {
         </div>
       </div>
 
-      {/* Hero image */}
       {blog.image_url && (
         <div className="w-full mb-10 rounded-2xl overflow-hidden shadow-lg">
           <img
@@ -118,7 +114,6 @@ function BolgPage() {
         </div>
       )}
 
-      {/* Content */}
       <div className="prose prose-base max-w-none text-base-content/80 leading-[1.9] text-[1.0625rem]">
         {blog.content
           .split("\n")
@@ -127,7 +122,6 @@ function BolgPage() {
           )}
       </div>
 
-      {/* Footer divider */}
       <div className="mt-14 pt-8 border-t border-base-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img

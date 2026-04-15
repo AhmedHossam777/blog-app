@@ -26,7 +26,7 @@ export default function Header() {
             }
             rounded-full
           >
-            Blog
+            Feed
           </NavLink>
 
           <div className="w-px h-5 bg-base-300 mx-2" />
@@ -55,7 +55,9 @@ export default function Header() {
                 className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow-lg bg-base-100 rounded-box w-40 border border-base-200"
               >
                 <li>
-                  <a className="text-sm">Profile</a>
+                  <Link to="/profile" className="text-sm">
+                    Profile
+                  </Link>
                 </li>
                 <li>
                   <a className="text-sm text-error" onClick={logout}>

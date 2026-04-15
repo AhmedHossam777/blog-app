@@ -3,8 +3,10 @@ import Register from "./features/auth/components/Register";
 import BlogList from "./features/blog/components/BlogList";
 import BolgPage from "./features/blog/components/BolgPage";
 import CreateBlog from "./features/blog/components/CreateBlog";
+import Profile from "./features/profile/Profile";
 import Header from "./layout/Header";
 import { Route, Routes } from "react-router";
+import NotFound from "./layout/NotFound";
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create-blog" element={<CreateBlog />} />
+        <Route path="/profile" element={<Profile />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

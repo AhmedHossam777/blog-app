@@ -1,5 +1,13 @@
 import { useAuth } from "@/context/AuthContext";
-import { AlertCircle, Eye, EyeOff, Lock, Mail, PenLine, User } from "lucide-react";
+import {
+  AlertCircle,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  PenLine,
+  User,
+} from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
@@ -55,10 +63,10 @@ function Register() {
       await register({ email, password, name: name.trim() });
       navigate("/");
     } catch (err) {
-      // Surface the API message — registration errors (e.g. "email already in use")
-      // are safe to display and help the user take action
       const message =
-        err instanceof Error ? err.message : "Registration failed. Please try again.";
+        err instanceof Error
+          ? err.message
+          : "Registration failed. Please try again.";
       setError(message);
     } finally {
       setLoading(false);
@@ -71,18 +79,18 @@ function Register() {
   return (
     <div className="min-h-[calc(100vh-64px)] bg-linear-to-br from-base-200 via-base-100 to-base-200 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Brand mark */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-4">
             <PenLine className="w-7 h-7 text-primary" />
           </div>
-          <h1 className="text-3xl font-bold tracking-tight">Create an account</h1>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Create an account
+          </h1>
           <p className="text-base-content/60 mt-1 text-sm">
             Join and start writing today
           </p>
         </div>
 
-        {/* Card */}
         <div className="bg-base-100 border border-base-200 shadow-xl rounded-2xl p-8">
           {error && (
             <div className="flex items-start gap-3 bg-error/10 border border-error/20 text-error rounded-xl px-4 py-3 mb-6 text-sm">
@@ -92,9 +100,11 @@ function Register() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Full name */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-1.5">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium mb-1.5"
+              >
                 Full name
               </label>
               <div className="relative">
@@ -112,9 +122,11 @@ function Register() {
               </div>
             </div>
 
-            {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1.5">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium mb-1.5"
+              >
                 Email address
               </label>
               <div className="relative">
@@ -132,9 +144,11 @@ function Register() {
               </div>
             </div>
 
-            {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-1.5">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium mb-1.5"
+              >
                 Password
               </label>
               <div className="relative">
@@ -164,7 +178,6 @@ function Register() {
                 </button>
               </div>
 
-              {/* Password strength */}
               {strength && (
                 <div className="mt-2 space-y-1">
                   <div className="flex gap-1">
@@ -197,7 +210,6 @@ function Register() {
               )}
             </div>
 
-            {/* Confirm password */}
             <div>
               <label
                 htmlFor="confirmPassword"
@@ -238,7 +250,9 @@ function Register() {
                 </button>
               </div>
               {confirmPassword && !passwordsMatch && (
-                <p className="text-xs text-error mt-1">Passwords do not match.</p>
+                <p className="text-xs text-error mt-1">
+                  Passwords do not match.
+                </p>
               )}
             </div>
 
@@ -260,7 +274,10 @@ function Register() {
 
           <p className="text-center text-sm text-base-content/60 mt-6">
             Already have an account?{" "}
-            <Link to="/login" className="text-primary font-medium hover:underline">
+            <Link
+              to="/login"
+              className="text-primary font-medium hover:underline"
+            >
               Sign in
             </Link>
           </p>

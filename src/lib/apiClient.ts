@@ -81,7 +81,12 @@ export const apiClient = async <T>(
   };
 
   if (body) {
-    config.body = JSON.stringify(body);
+    if (body instanceof FormData) {
+      config.body = body;
+      delete (config.headers as Record<string, string>)["Content-Type"];
+    } else {
+      config.body = JSON.stringify(body);
+    }
   }
 
   if (requiresAuth) {
